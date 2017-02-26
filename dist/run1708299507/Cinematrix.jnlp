@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Cinematrix.jnlp">
+  <information>
+    <title>Cinematrix</title>
+    <vendor>deepak</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Cinematrix.jar" size="3595747" download="eager" />
+    <jar href="lib/commons-lang-2.6.jar" size="284220" download="eager" />
+    <jar href="lib/commons-logging-1.1.1.jar" size="60031" download="eager" />
+    <jar href="lib/hsqldb.jar" size="1467326" download="eager" />
+    <jar href="lib/jackcess-2.1.6.jar" size="855824" download="eager" />
+    <jar href="lib/jfoenix.jar" size="2323355" download="eager" />
+    <jar href="lib/ucanaccess-4.0.1.jar" size="361733" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Cinematrix" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="cinematrix.CineMatrix"  name="Cinematrix" />
+  <update check="always"/>
+</jnlp>

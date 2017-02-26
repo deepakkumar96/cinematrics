@@ -1,0 +1,20 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+
+.root{
+    /*-fx-background-color: gray;*/
+}
+
+.left_panel{
+    background-color: green;
+}
+
+#main_left_panel{
+    background-color: red;
+}
+

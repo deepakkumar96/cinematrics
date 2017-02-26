@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="window_border" fx:id="parent" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.custom.WindowController">
+   <stylesheets>
+        <URL value="@window_css.css" />
+    </stylesheets>
+    <children>
+      <Button layoutX="728.0" layoutY="20.0" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="10.0" />
+      <Label fx:id="lblTitle" layoutX="362.0" layoutY="18.0" text="Cinematrics" textFill="#dad2d2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

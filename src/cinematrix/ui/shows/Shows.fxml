@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.shows.ShowController">
+   <top>
+      <Pane prefHeight="60.0" prefWidth="600.0" style="-fx-background-color: darkgreen;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="24.0" layoutY="17.0" text="Add Show" textFill="#dddbdb">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.7508361204013378" prefHeight="300.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <bottom>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="445.0" spacing="16.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAddButtnAction" text="    Add    " />
+                        <Button mnemonicParsing="false" text="Cancel" />
+                     </children>
+                     <padding>
+                        <Insets right="16.0" />
+                     </padding>
+                  </HBox>
+               </bottom>
+               <center>
+                  <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="28.0" layoutY="27.0" text="Movie Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox layoutX="187.0" layoutY="22.0" prefHeight="25.0" prefWidth="200.0" />
+                        <Label layoutX="28.0" layoutY="75.0" text="Rates : ">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="187.0" layoutY="73.0" text="Members">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="253.0" layoutY="68.0" prefHeight="25.0" prefWidth="37.0" promptText="Rs." />
+                        <TextField layoutX="352.0" layoutY="68.0" prefHeight="25.0" prefWidth="37.0" promptText="Rs." />
+                        <Label layoutX="301.0" layoutY="73.0" text="Guest">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="28.0" layoutY="126.0" text="Entertainment Tax">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="187.0" layoutY="123.0" prefHeight="25.0" prefWidth="191.0" promptText="Rs." />
+                        <TextField layoutX="187.0" layoutY="170.0" prefHeight="25.0" prefWidth="191.0" promptText="Rs." />
+                        <Label layoutX="28.0" layoutY="173.0" text="Service Tax">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </center>
+            </BorderPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </StackPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>

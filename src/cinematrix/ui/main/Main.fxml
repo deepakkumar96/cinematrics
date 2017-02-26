@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.main.MainController">
+   <left>
+      <StackPane prefHeight="296.0" prefWidth="255.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="lstActions" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </StackPane>
+   </left>
+   
+</BorderPane>

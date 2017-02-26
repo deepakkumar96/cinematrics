@@ -1,0 +1,29 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    
+}
+
+.root{
+    
+}
+
+.border_lines{
+    -fx-border-width: 2px;
+    -fx-border-color: gray;
+}
+
+.list_view{
+    -fx-border-color: gray;   
+}
+
+.circular_pane{
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-color: gray;
+    
+}
+
+
