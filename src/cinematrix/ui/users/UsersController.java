@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sun.security.util.Password;
 
@@ -54,7 +55,10 @@ public class UsersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         System.out.println("UserCtrl");
-        
+        txtUsername.setStyle("-fx-background-color: red,linear-gradient(to bottom, derive(red,60%) 5%,derive(red,90%) 40%);");
+        Tooltip toolTip = new Tooltip("Errors\none");
+        toolTip.setStyle("-fx-background-color: red,linear-gradient(to bottom, derive(red,60%) 5%,derive(red,90%) 40%);");
+        txtUsername.setTooltip(toolTip);
         username.setCellValueFactory(new PropertyValueFactory("username"));
         fullName.setCellValueFactory(new PropertyValueFactory("fullName"));
         phone.setCellValueFactory(new PropertyValueFactory("phoneNo"));

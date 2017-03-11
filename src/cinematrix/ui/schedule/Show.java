@@ -6,11 +6,15 @@
 package cinematrix.ui.schedule;
 
 import cinematrix.db.DbManager;
+import cinematrix.ui.movies.Movie;
 import cinematrix.ui.session.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -22,15 +26,18 @@ import javafx.collections.ObservableList;
  */
 public class Show {
     
-    private int screen;
-    private final StringProperty movie = new SimpleStringProperty();
-    private final StringProperty from = new SimpleStringProperty();
-    private final StringProperty to   = new SimpleStringProperty();
+    private int showId;
+    private int scheduleId;
+    private final IntegerProperty movie = new SimpleIntegerProperty();
+    private Time from;
+    private Time to;
     private final DoubleProperty memberPrice = new SimpleDoubleProperty();
     private final DoubleProperty guestPrice = new SimpleDoubleProperty();
 
-    public Show(int screen, String movie, String from, String to, double memberPrice, double guestPrice){
-        setScreen(screen);
+    public Show(){}
+    
+    public Show(int scheduleId, int movie, Time from, Time to, double memberPrice, double guestPrice){
+        setScheduleId(scheduleId);
         setMovie(movie);
         setTo(to);
         setFrom(from);
@@ -38,50 +45,86 @@ public class Show {
         setGuestPrice(guestPrice);
     }
     
-    public static ObservableList<Session> getSessions() throws SQLException{
-        ObservableList<Session> sessions = FXCollections.observableArrayList();
-        ResultSet rs = DbManager.getInstance().query("Select * from Session");
+    public static ObservableList<Show> all() throws SQLException{
+        ObservableList<Show> shows = FXCollections.observableArrayList();
+        ResultSet rs = DbManager.getInstance().query("Select * from Show");
         while(rs.next()){
-            sessions.add(new Session(
-                    rs.getInt("screen"),
-                    rs.getInt("showNo"),
-                    rs.getString("from"),
-                    rs.getString("to"),
-                    rs.getString("status")
+            shows.add(new Show(
+                    rs.getInt("schedule_id"),
+                    rs.getInt("movie"),
+                    rs.getTime("start_time"),
+                    rs.getTime("end_time"),
+                    rs.getDouble("guest_price"),
+                    rs.getDouble("memeber_price")
             ));
         }
-        return sessions;
+        return shows;
+    }
+    
+    public static Show get(int id) throws SQLException{
+        Show show = null;
+        try (ResultSet rs = DbManager.getInstance().query("select * from Show where id = "+id)) {
+            if(rs.next()){
+                show = new Show(
+                        rs.getInt("schedule_id"),
+                        rs.getInt("movie"),
+                        rs.getTime("start_time"),
+                        rs.getTime("end_time"),
+                        rs.getDouble("guest_price"),
+                        rs.getDouble("memeber_price")
+                );
+            }
+        }
+        return show;
+    }
+    
+    public static boolean add(Show show) throws SQLException{
+        DbManager.getInstance().update(
+            "INSERT INTO Show (schedule_id, movie, start_time, end_time, guest_price, memeber_price)" +
+            "VALUES( "+ show.scheduleId + ", " + show.getMovie() + " , #"+ show.getFrom() + 
+               "#, #" + show.getTo() + "#," + show.getGuestPrice()+ ", " + show.getMemberPrice()+ " )"
+       );
+        return true;
     }
     
     /* GETTERS */
     
+    
+    public int showId(){
+        return showId;
+    }
+    
+    public void setShowId(int showId){
+        this.showId = showId;
+    }
+    
     /**
      * @return the screen
      */
-    public int getScreen() {
-        return screen;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
     
     /**
      * @return the movie
      */
-    public String getMovie() {
+    public int getMovie() {
         return movie.get();
     }
 
     /**
      * @return the from
      */
-    public String getFrom() {
-        return from.get();
+    public Time getFrom() {
+        return from;
     }
 
     /**
      * @return the to
      */
-    public String getTo() {
-        return to.get();
+    public Time getTo() {
+        return to;
     }
 
     /**
@@ -103,29 +146,29 @@ public class Show {
     /**
      * @param screen the screen to set
      */
-    public void setScreen(int screen) {
-        this.screen = screen;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     /**
      * @param movie the movie to set
      */
-    public void setMovie(String movie) {
+    public void setMovie(int movie) {   
         this.movie.set(movie);
     }
 
     /**
      * @param from the from to set
      */
-    public void setFrom(String from) {
-        this.from.set(from);
+    public void setFrom(Time from) {
+        this.from = from;
     }
 
     /**
      * @param to the to to set
      */
-    public void setTo(String to) {
-        this.to.set(to);
+    public void setTo(Time to) {
+        this.to = to;
     }
 
     /**
@@ -142,8 +185,30 @@ public class Show {
         this.guestPrice.set(guestPrice);
     }
     
+    public String getCommaSeparatedValues(){
+        return scheduleId + ", " + getMovie() + " , '"+ getFrom() + 
+               "', '" + getTo() + "'," + getGuestPrice()+ ", " + getMemberPrice();
+    }
+    
     @Override public String toString(){
-        return movie+", "+ from + ", " + to + ", " + memberPrice;
+        return getCommaSeparatedValues();
+    }
+    
+    public static void main(String[] args){
+        try{
+            Show.all().forEach(System.out::println);
+            
+            
+            Time t = Show.get(2).getFrom();
+            System.err.println(t);
+            Show.add(new Show(0, 12, t, t, 4, 5));
+            
+            System.out.println(Show.all());
+            
+        }catch(SQLException sqlex){
+                System.out.println(sqlex.getMessage()); 
+        }
+        
     }
     
     

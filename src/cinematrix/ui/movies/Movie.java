@@ -9,8 +9,10 @@ import cinematrix.db.DbManager;
 import cinematrix.models.Distributor;
 import static cinematrix.models.Distributor.createDistributorFromResultSet;
 import cinematrix.models.user.User;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -28,8 +30,8 @@ public class Movie {
     private StringProperty movieCode = new SimpleStringProperty();
     private StringProperty movieName = new SimpleStringProperty();
     private int distributer;
-    private StringProperty startDate = new SimpleStringProperty();
-    private StringProperty endDate = new SimpleStringProperty();
+    private Date startDate;
+    private Date endDate;
     private int run;
     private int week;
     private StringProperty starCast  = new SimpleStringProperty();
@@ -40,8 +42,8 @@ public class Movie {
     
     public Movie(){}
     
-    public Movie(int id, String movieCode, String movieName, int distributer, String startDate, 
-                 String endDate, int run, int week, String starCast, double rating,
+    public Movie(int id, String movieCode, String movieName, int distributer, Date startDate, 
+                 Date endDate, int run, int week, String starCast, double rating,
                  int language, int movieLength, int category){
             this.id = id;
             setMovieCode(movieCode);
@@ -59,7 +61,7 @@ public class Movie {
     }
     
     
-    public static ObservableList<Movie> getMovies() throws SQLException{
+    public static ObservableList<Movie> all() throws SQLException{
         ObservableList<Movie> movies = FXCollections.observableArrayList();
         ResultSet rs = DbManager.getInstance().query("Select * from Movie");
         while(rs.next()){
@@ -68,7 +70,7 @@ public class Movie {
         return movies;
     }
     
-    public static Movie getMovie(int id) throws SQLException{
+    public static Movie get(int id) throws SQLException{
         Movie movie = null;
         ResultSet rs = DbManager.getInstance().query("select * from Movie where id = "+id);
         if(rs.next()){
@@ -84,8 +86,8 @@ public class Movie {
                     rs.getString("code"),
                     rs.getString("title"),
                     rs.getInt("distributor_id"),
-                    rs.getString("release_date"),
-                    rs.getString("runout_date"),
+                    rs.getDate("release_date"),
+                    rs.getDate("runout_date"),
                     rs.getInt("id"),
                     rs.getInt("id"),
                     rs.getString("starcast"),
@@ -98,25 +100,28 @@ public class Movie {
     
     public static boolean addMovie(Movie movie) throws SQLException{
         DbManager.getInstance().update(
-            "INSERT INTO Movie (code, title, distributor_id, release_date, runout_date, email_id) " +
+            "INSERT INTO Movie (code, title, distributor_id, release_date, runout_date, "+
+            "no_of_shows, no_of_screens,"+
+            "starcast, rating, language, length, category) " +
             "VALUES( "+ movie.getCommaSeparatedValues()+ " )"
        );
         return true;
     }
     
     public String getCommaSeparatedValues(){
-        return  "" + movieCode.get() + ", "+
-                "'"+ movieName.get() + "', "+
+        return  "'" + movieCode.get() + "' , "+
+                "'"+ movieName.get() + "', "+   
                 "" + distributer + ", "+
-                "'"+ startDate.get() + "', "+
-                "'"+ endDate.get() + "', "+
+                "#"+ ((startDate != null)?startDate.toString():"") + "#, "+
+                "#"+ ((endDate != null)?endDate.toString():null) + "#, "+
                 "" + run + ", "+
                 "" + week + ", "+
                 "'"+ starCast.get() + "', "+
                 "" + rating.get() + ", "+
                 "" + language + ", "+
-                "'"+ movieLength + "'"; 
-    }
+                ""+ movieLength + ", " +
+                ""+ category + ""; 
+    }//Mv-2, 'Raeeszz', 0, 2, 2, 'shahruk khan', 5.0, 0, '154''0'
     
     @Override
     public String toString(){
@@ -128,12 +133,20 @@ public class Movie {
     public static void main(String[] args){
         
         try{
-            System.out.println(getMovie(1).getCommaSeparatedValues());
+            System.out.println(get(1).getCommaSeparatedValues());
             
         }catch(SQLException sqlex){
             System.out.println(sqlex.getMessage());
         }
         
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
     }
     
     /**
@@ -155,6 +168,10 @@ public class Movie {
      */
     public String getMovieName() {
         return movieName.get();
+    }
+    
+    public StringProperty getMovieNameProperty() {
+        return movieName;
     }
 
     /**
@@ -181,29 +198,37 @@ public class Movie {
     /**
      * @return the startDate
      */
-    public String getStartDate() {
-        return startDate.get();
+    public Date getStartDate() {
+        return startDate;
+    }
+    
+    public LocalDate getStartLocalDate(){
+        return (startDate != null)?startDate.toLocalDate(): null;
     }
 
     /**
      * @param startDate the startDate to set
      */
-    public void setStartDate(String startDate) {
-        this.startDate.set(startDate);
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     /**
      * @return the endDate
      */
-    public String getEndDate() {
-        return endDate.get();
+    public Date getEndDate() {
+        return endDate;
+    }
+    
+    public LocalDate getEndLocalDate(){
+        return (endDate != null)?endDate.toLocalDate(): null;
     }
 
     /**
      * @param endDate the endDate to set
      */
-    public void setEndDate(String endDate) {
-        this.endDate.set(endDate);
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     /**

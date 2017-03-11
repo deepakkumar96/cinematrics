@@ -62,6 +62,12 @@ public class DbManager {
         return true;
     }
     
+    public boolean delete(String query) throws SQLException{
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(query);
+        return true;
+    }
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         
         DbManager db = new DbManager("/home/deepak/Desktop/Cinematrix.accdb");

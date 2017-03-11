@@ -6,7 +6,6 @@
 package cinematrix.models;
 
 import cinematrix.db.DbManager;
-import static cinematrix.models.Language.getLanguages;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
@@ -26,8 +25,17 @@ public class Distributor {
     private String distEmailId;
     
     public Distributor(){}
+    
+    public Distributor(String distName, String distCity, String distOwner, String distManager, String distMobileNo, String distEmailId){
+        setDistName(distName);
+        setDistCity(distCity);
+        setDistOwner(distOwner);
+        setDistManager(distManager);
+        setDistMobileNo(distMobileNo);
+        setDistEmailId(distEmailId);
+    }
 
-    public static ObservableList<Distributor> getDistributors() throws SQLException{
+    public static ObservableList<Distributor> all() throws SQLException{
         ObservableList<Distributor> distributors = FXCollections.observableArrayList();
         ResultSet rs = DbManager.getInstance().query("Select * from Distributor");
         while(rs.next()){
@@ -36,7 +44,7 @@ public class Distributor {
         return distributors;
     }
     
-    public static Distributor getDistributor(int id) throws SQLException{
+    public static Distributor get(int id) throws SQLException{
         Distributor distributor = null;
         ResultSet rs = DbManager.getInstance().query("select * from Distributor where dist_id = "+id);
         if(rs.next()){
@@ -44,6 +52,28 @@ public class Distributor {
         }
         rs.close();
         return distributor;
+    }
+    
+    public static boolean add(Distributor dist) throws SQLException{
+        DbManager.getInstance().update(
+            "INSERT INTO Distributor (dist_name, dist_city, dist_owner, dist_manager, dist_mobile_no, dist_email_id)" + 
+            "VALUES( " +
+                    "'" + dist.getDistName()+ "', "   +
+                    "'" + dist.getDistCity()+ "', " +
+                    "'" + dist.getDistOwner()+ "', " +
+                    "'" + dist.getDistManager()+ "', " +
+                    "'" + dist.getDistMobileNo()+ "', " +
+                    "'" + dist.getDistEmailId()+ "'" +
+            " )"
+       );
+        return true;
+    }
+    
+    public static boolean delete(int id) throws SQLException{
+        DbManager.getInstance().update(
+            "delete from Distributor where dist_id = " + id
+       );
+        return true;
     }
     
     /**
@@ -125,9 +155,24 @@ public class Distributor {
         return distName;
     }
     
+    @Override
+    public boolean equals(Object obj){
+        if(obj == this)
+            return true;
+        
+        if(!(obj instanceof Distributor))
+            return false;
+        
+        Distributor other = (Distributor) obj;
+        return other.distId == this.distId;
+    }
+    
     public static void main(String[] args){
         try{
-            System.out.println("Dist : " + getDistributor(1));
+            System.out.println(all());
+            //Distributor.delete(2);
+            //add(new Distributor("Harsh", "Ahmedabad", "Mrinal", "OWNER",  "187382", "dutta@gmail.com"));
+            System.out.println(all());
         }catch(Exception ex){
             System.out.println(ex.getMessage());
         }

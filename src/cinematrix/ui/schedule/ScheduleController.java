@@ -5,8 +5,16 @@
  */
 package cinematrix.ui.schedule;
 
+import cinematrix.models.Screen;
+import cinematrix.ui.movies.Movie;
 import java.net.URL;
-import java.util.Date;
+import java.sql.SQLException;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.text.DateFormatter;
 
 /**
  * FXML Controller class
@@ -30,7 +39,7 @@ public class ScheduleController implements Initializable {
     @FXML private DatePicker schedule;
     @FXML private ComboBox cmbScreen;
     @FXML private TableView<Show> tblShows;
-    @FXML private ComboBox<String> cmbMovies;
+    @FXML private ComboBox<Movie> cmbMovies;
     @FXML private TextField txtFrom;
     @FXML private TextField txtTo;
     @FXML private TextField txtMemberPrice;
@@ -56,10 +65,14 @@ public class ScheduleController implements Initializable {
         
         tblShows.setItems(shows);
         
-        cmbScreen.setItems(FXCollections.observableArrayList("Veronica", "Mariegold"));
-        cmbMovies.setItems(FXCollections.observableArrayList("Raees", "Batman", "Superman"));
-        cmbMovies.getSelectionModel().select(0);
-        cmbScreen.getSelectionModel().select(0);
+        try{
+            cmbScreen.setItems(Screen.all());
+            cmbMovies.setItems(Movie.all());
+            cmbMovies.getSelectionModel().select(0);
+            cmbScreen.getSelectionModel().select(0);
+        }catch(SQLException sqlex){
+            System.out.println(sqlex.getMessage());
+        }
         
     }    
     
@@ -67,22 +80,36 @@ public class ScheduleController implements Initializable {
         //Add to database
         System.out.println("SCH : " + schedule.getValue());
         Schedule newSchedule = new Schedule(
-                schedule.getValue().toString(),
-                cmbScreen.getSelectionModel().getSelectedIndex(),
-                shows);
+                0,
+                Date.valueOf(schedule.getValue()),
+                cmbScreen.getSelectionModel().getSelectedIndex()
+        );
+        newSchedule.setShows(shows);
         System.out.println("Schedule : " + newSchedule);
+        try{
+            Schedule.addScheduleWithShows(newSchedule);
+        }catch(SQLException sqlex){
+            System.out.println(sqlex);
+        }
     }
     
     @FXML public void handleAddShowButtnAction(ActionEvent evt){
         System.out.println("Show");
-        shows.add(new Show(
-                1,
-                cmbMovies.getSelectionModel().getSelectedItem(),
-                txtFrom.getText(),
-                txtTo.getText(),
-                Double.parseDouble(txtMemberPrice.getText()),
-                Double.parseDouble(txtGuestPrice.getText())
-        ));
+        
+        try{
+            
+            DateFormat formatter = new SimpleDateFormat("HH:mm");
+            shows.add(new Show(
+                    0,
+                    cmbMovies.getSelectionModel().getSelectedItem().getId(),
+                    new Time(formatter.parse(txtFrom.getText()).getTime()),
+                    new Time(formatter.parse(txtTo.getText()).getTime()),
+                    Double.parseDouble(txtMemberPrice.getText()),
+                    Double.parseDouble(txtGuestPrice.getText())
+            ));
+        }catch(ParseException parseEx){
+            System.err.println("Time Parsing Error");
+        }
         System.out.println("Shows : " + shows);
         System.out.println("Movies : " +    cmbScreen.getSelectionModel().getSelectedItem());
         

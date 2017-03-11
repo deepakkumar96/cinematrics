@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -57,6 +58,7 @@ public class MainController implements Initializable {
             Pane movies = (Pane) FXMLLoader.load(getClass().getResource("/cinematrix/ui/movies/Movies.fxml"));
             Pane users = (Pane) FXMLLoader.load(getClass().getResource("/cinematrix/ui/users/Users.fxml"));
             Pane schedule = (Pane) FXMLLoader.load(getClass().getResource("/cinematrix/ui/schedule/schedule.fxml"));
+            ScrollPane mics = (ScrollPane) FXMLLoader.load(getClass().getResource("/cinematrix/ui/mics/mics.fxml"));
             
             
             Insets centerPadding = new Insets(5, 10, 100, 10);
@@ -66,6 +68,7 @@ public class MainController implements Initializable {
             movies.setPadding(centerPadding);
             users.setPadding(centerPadding);
             schedule.setPadding(new Insets(5, 10, 50, 10));
+            mics.setPadding(new Insets(5, 10, 10, 10));
             
             //pane.setCenter(new TableView());
             movies.setManaged(true);
@@ -80,7 +83,8 @@ public class MainController implements Initializable {
                   new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Add Shows"),
                   new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Movie Information"),
                   new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Add Users"),
-                  new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Add Schedule")
+                  new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Add Schedule"),
+                  new Action(new Image(getClass().getResourceAsStream("/cinematrix/images/kitty.png")), "Mics")
                   
             );
             
@@ -99,6 +103,8 @@ public class MainController implements Initializable {
                         pane.setCenter(users); break;
                     case 4:
                         pane.setCenter(schedule); break;
+                    case 5:
+                        pane.setCenter(mics); break;
                 }
             });
             

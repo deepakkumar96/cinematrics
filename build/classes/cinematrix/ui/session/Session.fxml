@@ -7,7 +7,7 @@
 <?import java.net.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.session.SessionController">
+<GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.session.SessionController">
    <stylesheets>
         <URL value="@session.css" />
     </stylesheets>
@@ -40,11 +40,12 @@
       </Pane>
       <TableView id="tblSession" fx:id="tblSession" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn fx:id="screen" prefWidth="75.0" text="Screen" />
-          <TableColumn fx:id="show" prefWidth="75.0" text="Show" />
-            <TableColumn fx:id="from" prefWidth="75.0" text="From" />
-            <TableColumn fx:id="to" prefWidth="75.0" text="To" />
-            <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
+          <TableColumn fx:id="screenColumn" prefWidth="97.0" text="Screen" />
+          <TableColumn fx:id="movieColumn" prefWidth="184.0" text="Movie" />
+            <TableColumn fx:id="fromColumn" prefWidth="82.0" text="Start" />
+            <TableColumn fx:id="toColumn" prefWidth="73.0" text="End" />
+            <TableColumn fx:id="guestPriceMember" prefWidth="99.0" text="Guest Price" />
+            <TableColumn fx:id="memberPriceColumn" prefWidth="130.0" text="Member Price" />
         </columns>
          <columnResizePolicy>
          </columnResizePolicy>

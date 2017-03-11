@@ -5,3 +5,122 @@
 .mainFxmlClass {
 
 }
+
+.table-view > .column-header-background {
+    /* StackPane */
+}
+
+.table-view > .column-header-background > .filler {
+    /* Region - area of header not taken by column headers */
+}
+
+.table-view > .column-header-background > .column-drag-header {
+    /* StackPane */
+}
+
+.table-view > .column-header-background > .column-drag-header > .label {
+    /* Label */
+}
+
+.table-view > .column-header-background > .column-drag-header > .label > .text {
+    /* Text */
+}
+
+.table-view > .column-header-background > .nested-column-header {
+    /* Region */
+}
+
+.table-view > .column-header-background > .nested-column-header > .column-header.table-column {
+    /* Region */
+}
+
+.table-view > .column-header-background > .nested-column-header > .column-header.table-column > .label {
+    /* Label */
+}
+
+.table-view > .column-header-background > .nested-column-header > .column-header.table-column > .label > .text {
+    /* Text */
+}
+
+.table-view > .column-header-background > .nested-column-header > .column-header.table-column > Grid {
+    /* Grid */
+}
+
+.table-view > .column-header-background > .nested-column-header > .column-header.table-column > Grid > .arrow {
+    /* Region */
+}
+
+.table-view > .column-header-background > .nested-column-header > Rectangle {
+    /* Rectangle - separates column headers. Resize icon on :hover */
+}
+
+.table-view > .column-header-background > .show-hide-columns-button {
+    /* StackPane */
+}
+
+.table-view > .column-header-background > .show-hide-columns-button > .show-hide-column-image {
+    /* StackPane */
+}
+
+.table-view > .column-overlay {
+    /* Region - highlights column being dragged */
+}
+
+.table-view > .column-resize-line {
+    /* Region - displays where the dragged column will drop  */
+}
+
+.table-view > .virtual-flow {
+    /* Region */
+}
+
+.table-view > .virtual-flow > .clipped-container {
+    /* Region */
+}
+
+.table-view > .virtual-flow > .clipped-container > .sheet {
+    /* Group */
+}
+
+.table-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.table-row-cell {
+    /* TableRow */
+}
+.table-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.table-row-cell > .cell.indexed-cell.table-cell.table-column {
+    /* TableCell */
+}
+
+.table-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.table-row-cell > .cell.indexed-cell.table-cell.table-column > .text {
+    /* Text */
+}
+
+.table-view > .virtual-flow > .scroll-bar {
+    /* ScrollBar - has :vertical and :horizontal (default) pseudo-class state */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .track-background {
+    /* StackPane */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .track {
+    /* StackPane */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .thumb {
+    /* StackPane */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    /* Region */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .decrement-arrow {
+    /* Region */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button {
+    /* Region */
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-arrow {
+    /* Region */
+}

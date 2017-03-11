@@ -11,7 +11,10 @@ import cinematrix.models.Language;
 import com.jfoenix.controls.JFXSlider;
 import com.sun.javafx.css.Combinator;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -59,14 +62,21 @@ public class MoviesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("MOVIE CTRL");
+        
+        startDate.setOnAction(e ->{
+            
+            LocalDate date = startDate.getValue();
+            System.out.println(date.toString());
+        });
+        
         //attaching table columns with entity class field
         movieNameColumn.setCellValueFactory(new PropertyValueFactory("movieName"));
         
         try{
-            cmbDistributer.setItems(Distributor.getDistributors()); // DB
-            cmbLanguage.setItems(Language.getLanguages()); // DB
+            cmbDistributer.setItems(Distributor.all()); // DB
+            cmbLanguage.setItems(Language.all()); // DB
             
-            cmbCategory.setItems(Category.getCategories());
+            cmbCategory.setItems(Category.all());
             
             
             System.out.println("WORK");
@@ -80,29 +90,34 @@ public class MoviesController implements Initializable {
         //Responding To Movie Selection Event of Movie Table(tblMovies)
         tblMovies.getSelectionModel().selectedItemProperty().addListener((movies, oldMovie, selectedMovie) -> {
             try {
-                System.out.println(selectedMovie);
+                System.out.println("selected Movie :" +selectedMovie);
                 clearMovieForm();
                 txtMovieCode.setText(selectedMovie.getMovieCode());
                 txtMovieName.setText(selectedMovie.getMovieName());
 
-                    Distributor dist = Distributor.getDistributor(selectedMovie.getDistributer());
-                    System.out.println("DIST : " + dist);
+                    Distributor dist = Distributor.get(selectedMovie.getDistributer());
+                    System.out.println("DISTiBUTOR : " + dist);
                     cmbDistributer.getItems().add(dist);
                     cmbDistributer.getSelectionModel().select(0);
                 
-                System.out.println(selectedMovie.getStartDate());
-                //startDate.setValue(selectedMovie.getStartDate());
+                //System.out.println(LocalDate.parse(selectedMovie.getStartDate()));
+                if(selectedMovie.getStartLocalDate()!= null)
+                    startDate.setValue(selectedMovie.getStartLocalDate());
+                
+                if(selectedMovie.getEndLocalDate() != null)
+                    endDate.setValue(selectedMovie.getEndLocalDate());
+                
                 txtRun.setText(selectedMovie.getRun()+"");
                 txtWeek.setText(selectedMovie.getWeek()+"");
                 txtStarCast.setText(selectedMovie.getStarCast());
                 rating.setValue(selectedMovie.getRating());
                 
-                cmbLanguage.getItems().add(Language.getLanguage(selectedMovie.getLanguage()));
+                cmbLanguage.getItems().add(Language.get(selectedMovie.getLanguage()));
                 cmbLanguage.getSelectionModel().select(0);
                 
                 txtMovieLength.setText(selectedMovie.getMovieLength()+"");
                 
-                cmbCategory.getItems().add(Category.getCategory(selectedMovie.getCategory()));
+                cmbCategory.getItems().add(Category.get(selectedMovie.getCategory()));
                 cmbCategory.getSelectionModel().select(0);
             }catch(SQLException sqlex){
                 System.out.println(sqlex.getMessage());
@@ -113,25 +128,28 @@ public class MoviesController implements Initializable {
     }    
     
     @FXML public void handleBtnAddMovieAction(ActionEvent evt){
-        
+        System.out.println("ED : " + endDate.getValue());
         Movie movie = new Movie(
                 0,
                 txtMovieCode.getText(),
                 txtMovieName.getText(),
-                cmbDistributer.getSelectionModel().getSelectedIndex(),
-                startDate.getValue().toString(),
-                endDate.getValue().toString(),
+                cmbDistributer.getSelectionModel().getSelectedItem().getDistId(),
+                Date.valueOf(startDate.getValue()),
+                Date.valueOf(endDate.getValue()),
                 Integer.parseInt(txtRun.getText()),
                 Integer.parseInt(txtWeek.getText()),
                 txtStarCast.getText(),
                 rating.getValue(),
-                cmbLanguage.getSelectionModel().getSelectedIndex(),
+                cmbLanguage.getSelectionModel().getSelectedItem().getLanguageId(),
                 Integer.parseInt(txtMovieLength.getText()),
-                cmbCategory.getSelectionModel().getSelectedIndex()
+                cmbCategory.getSelectionModel().getSelectedItem().getCategoryId()
         );
         System.out.println("MOVIEW : " + movie);
+        System.out.println("MOVIEW : " + movie.getCommaSeparatedValues());
         try{
             Movie.addMovie(movie);
+            clearMovieForm();
+            loadMovies();
         }catch(SQLException sqlex){
             System.out.println("Unable TO ADD Movie : " + sqlex.getMessage());
         }   
@@ -139,17 +157,24 @@ public class MoviesController implements Initializable {
     
     public void loadMovies(){
         try {
-            totalMovies = Movie.getMovies();
-            tblMovies.getItems().clear();
+            if(totalMovies == null){ 
+                totalMovies = Movie.all();
+            }
+            else{
+                totalMovies.clear();    
+                totalMovies.addAll(Movie.all());
+            }
+            //tblMovies.getItems().clear();
             System.out.println(totalMovies);
             tblMovies.setItems(totalMovies);
+            tblMovies.getSelectionModel().select(totalMovies.size()-1);
         } catch (SQLException sqlex) {
             System.out.println(sqlex.getMessage());
         }
     }
     
     public void clearMovieForm(){
-        txtMovieCode.clear();
+        txtMovieCode.setText("");
         txtMovieName.clear();
         txtRun.clear();
         txtWeek.clear();

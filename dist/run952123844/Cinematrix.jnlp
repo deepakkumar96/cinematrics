@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Cinematrix.jar" size="3595747" download="eager" />
+    <jar href="Cinematrix.jar" size="3600500" download="eager" />
     <jar href="lib/commons-lang-2.6.jar" size="284220" download="eager" />
     <jar href="lib/commons-logging-1.1.1.jar" size="60031" download="eager" />
     <jar href="lib/hsqldb.jar" size="1467326" download="eager" />

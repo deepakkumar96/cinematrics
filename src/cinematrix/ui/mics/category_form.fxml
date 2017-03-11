@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.mics.CategoryFormController">
+   <center>
+      <TableView fx:id="tblCategory" editable="true" prefHeight="208.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="categoryIdColumn" prefWidth="127.0" text="Category Id" />
+          <TableColumn fx:id="categoryNameColumn" prefWidth="237.0" text="Category Name" />
+        </columns>
+         <BorderPane.margin>
+            <Insets left="8.0" right="8.0" />
+         </BorderPane.margin>
+      </TableView>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnAddCategory" layoutX="482.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnAddCategoryHandler" prefHeight="25.0" prefWidth="74.0" text="Add" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="10.0" />
+            <Label layoutX="34.0" layoutY="13.0" text="Category Name" AnchorPane.leftAnchor="8.0" />
+            <TextField fx:id="txtCategoryName" layoutX="143.0" layoutY="8.0" prefHeight="25.0" prefWidth="346.0" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
