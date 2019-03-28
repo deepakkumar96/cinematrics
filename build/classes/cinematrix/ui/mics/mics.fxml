@@ -11,7 +11,7 @@
    <content>
       <VBox fx:id="vBoxContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="402.0" prefWidth="800.0" spacing="40.0">
          <padding>
-            <Insets left="140.0" top="30.0" />
+            <Insets left="100.0" top="30.0" />
          </padding>
       </VBox>
    </content>

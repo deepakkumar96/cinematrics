@@ -37,9 +37,9 @@ public class DbManager {
         conn = DriverManager.getConnection("jdbc:ucanaccess://"+dbUrl);
         System.out.println("jdbc:ucanaccess://"+dbUrl);
         try{
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("Insert into User (full_name, user_name, password, user_type, phone_no, email_id) "
-                           + "VALUES ('a', 'b', 'c', 1, 'aaa', 'hj')");
+            //Statement stmt = conn.createStatement();
+            //stmt.executeUpdate("Insert into User (full_name, user_name, password, user_type, phone_no, email_id) "
+             //              + "VALUES ('a', 'b', 'c', 1, 'aaa', 'hj')");
             
         }catch(Exception ex){
             System.err.println(ex.getMessage());

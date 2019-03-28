@@ -46,8 +46,7 @@ public class Show {
     }
     
     public static ObservableList<Show> all() throws SQLException{
-        ObservableList<Show> shows = FXCollections.observableArrayList();
-        ResultSet rs = DbManager.getInstance().query("Select * from Show");
+        ObservableList<Show> shows = FXCollections.observableArrayList();        ResultSet rs = DbManager.getInstance().query("Select * from Show");
         while(rs.next()){
             shows.add(new Show(
                     rs.getInt("schedule_id"),

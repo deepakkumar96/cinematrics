@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinematrix.ui.dashboard.MovieBookingController">
    <children>
       <StackPane prefHeight="74.0" prefWidth="442.0">
          <children>
@@ -18,32 +18,32 @@
       </StackPane>
       <Pane prefHeight="68.0" prefWidth="442.0">
          <children>
-            <ComboBox layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
+            <ComboBox fx:id="cmbMovies" layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
             <Label layoutX="15.0" layoutY="15.0" text="Movie Name" />
          </children>
       </Pane>
       <Pane prefHeight="65.0" prefWidth="442.0">
          <children>
-            <ComboBox layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
+            <ComboBox fx:id="cmbSeats" layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
             <Label layoutX="15.0" layoutY="15.0" text="No. Of Seats" />
          </children>
       </Pane>
       <Pane prefHeight="64.0" prefWidth="442.0">
          <children>
-            <ComboBox layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
+            <ComboBox fx:id="cmbShows" layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
             <Label layoutX="15.0" layoutY="15.0" text="Timing" />
          </children>
       </Pane>
       <Pane prefHeight="60.0" prefWidth="442.0">
          <children>
-            <ComboBox layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
+            <ComboBox fx:id="cmbScreens" layoutX="173.0" layoutY="10.0" prefWidth="150.0" />
             <Label layoutX="15.0" layoutY="15.0" text="Screen" />
          </children>
       </Pane>
       <Pane prefHeight="53.0" prefWidth="442.0">
          <children>
             <Label layoutX="15.0" layoutY="15.0" text="Promo Code" />
-            <TextField layoutX="172.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField fx:id="txtPromoCode" layoutX="172.0" layoutY="10.0" prefHeight="25.0" prefWidth="150.0" />
          </children>
       </Pane>
       <HBox prefHeight="100.0" prefWidth="200.0" />
